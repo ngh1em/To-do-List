@@ -1,0 +1,254 @@
+/* --- Google fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+* { 
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #9e66ee;
+  --light: #eee;
+  --dark: #212121;
+  --secondary: #f3f2ab;
+  --bootstraplight: #f8f9fa;
+}
+
+body {
+  background-color: var(--dark);
+  margin-top: 5em;
+}
+
+header {
+  display: grid;
+  grid-row: 1 / 2;
+}
+
+.nav-wrapper { 
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: var(--dark);
+  padding: 16px 32px;
+  border-bottom: 3px solid var(--primary);
+}
+
+body h1 { 
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(0deg, rgb(238, 238, 238) 24.5%, rgb(240, 173, 78)90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 5px 20px 0 0;
+}
+
+.hamburger {
+  display: block;
+  position: relative;
+  z-index: 1;
+  user-select: none;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  width: 33px;
+  height: 4px; 
+  margin-bottom: 5px; 
+  position: relative;
+  background-color: var(--light);
+  border-radius: 6px;
+  z-index: 1;
+  transform-origin: 0 0;
+  transition: 0.4s;
+}
+
+.menu {
+  display: none;
+  flex: 1 1 0%;
+  justify-content: flex-start;
+  margin: 0 -8px; 
+}
+
+.menu a {
+  color: #000;
+  font-size: 14px;
+  margin: 0 auto;
+  text-decoration: none;
+  transition: 0.4s;
+  padding: 4px 10px;
+}
+
+.menu a.is-active,
+.menu a:hover {
+  background-color: var(--primary);
+}
+
+@media (min-width: 768px) {
+  .hamburger {
+    display: none;
+  }
+
+  .menu {
+    display: flex;
+  }
+
+  .form-inline {
+    display: flex;
+  }
+}
+
+@media (max-width: 767px) {
+  .form-inline {
+    display: none;
+    transition: 0.4s ease-out;
+  }
+}
+.timezone {
+  margin: 8em 0 0 3em;
+}
+
+#time-display{
+  text-align: center;
+  color: #000;
+  letter-spacing:2px;
+  font-size: 12px;
+  font-weight: 600;
+  padding:5px;
+  color: var(--primary);
+  border-radius:30px;
+  transition: 0.3s ease;
+}
+
+#date-display{
+  color: var(--light);
+  text-align: center;
+  font-size: 15px;
+  font-weight: 400;
+  padding:5px;
+  letter-spacing: 3px;
+  transition: 0.3s ease;
+}
+
+.clear-btn {
+  margin-right: 2em;
+  color: var(--light);
+  background-color: var(--primary);
+  outline: none;
+  border: none;
+  padding: 6px 20px;
+  border-radius: 2.5rem;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  display: none;
+  margin-top: 2000px;
+}
+
+main {
+  height: 90vh;
+}
+
+.todo-container {
+  display: flex; 
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: start;
+  margin: 1rem;
+  white-space: nowrap;
+}
+
+.status {
+  width: 24em;
+  margin-left: 0.5em;
+  transition: 0.3s ease;
+}
+
+#to-do {
+  background: rgba(252,70,161,1);
+}
+
+#inProgress {
+  background: #94bbe9;
+}
+
+#review {
+  background: #f1c812;
+}
+
+#done {
+  background: #acde83e6;
+}
+
+#title {
+  color: #fff;
+}
+
+#add_btn {
+  padding: 0.5rem 1rem;
+  background-color: rgb(46, 43, 43);
+  outline: none;
+  border: none;
+  width: 100%;
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#add_btn:hover {
+  background-color: #aaa;
+}
+
+.done-button,
+.edit-button,
+.delete-button {
+  font-size: 11px;
+  border-radius: 3em;
+  padding: 1px 1.5em;
+}
+
+@media (max-width: 815px) {
+  .todo-container {
+    display: grid;
+    justify-content: center;
+    grid-gap: 20px;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 1600px) and (min-width: 1200px) {
+  .todo-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+  }
+}
+
+li {
+  list-style-type: none;
+  justify-content: start;
+}
+
+.list-group {
+	max-width: 400px;
+	transition: 0.3s;
+}

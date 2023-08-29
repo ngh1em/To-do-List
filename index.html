@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <!-- Required meta tags -->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   <!-- Font Awesome CSS -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <!-- Boxicons CSS -->
+   <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+   <!-- External CSS -->
+   <link rel="stylesheet" href="style.css">
+   <!-- Our Tab Title -->
+   <title>TASKPLANR!</title>
+   
+     <title>Task List</title>
+</head>
+
+<header>
+    <nav>
+      <div class="nav-wrapper">
+        <h1 class="is-active">Taskplanr</h1>
+  
+        <form id="timezone">
+          <span id="date-display"></span>
+          <span id="time-display">loading</span>
+        </form>
+  
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="text" id="search-input" placeholder="Search ... " aria-label="Search" style="height: 2rem; font-size: 13px;">
+          <button class="btn btn-sm btn-warning my-2 my-sm-0" type="submit"><i class='bx bx-search-alt'></i></button>
+        </form>
+        <button class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+<body>
+<!-- Team Name Board starts here-->
+  <!-- "Add a new Task" Modal content starts here -->
+    <div class="modal fade" id="reg-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">  
+    <!--Modal Bubble-->  
+    <div class="modal-dialog">
+    <!--Modal Content-->    
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="model-title">New Task</h5>
+              <button type="button close-modal" class="close" id="close-btn" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    
+    <!-- The Form starts here -->
+                  <form id="newTaskForm">
+                    <!-- New Task Name -->  
+                     <div class="form-group">
+                        <label for="newTaskName">Task Name</label>
+                          <input type="text" class="form-control" id="newTaskName" placeholder="Task Name..." required/>
+                      
+                      <div class="valid-feedback">Looks good!</div>
+                      <div class="invalid-feedback">Please provide a valid name more than 5 characters.</div>
+                     </div>
+                  
+                    <!-- Task Description -->
+                     <div class="form-group">
+                        <label for="newTaskDescription">Description</label>
+                        <input
+                        type="text"
+                        class="form-control"
+                        id="newTaskDescription"
+                        placeholder="Description of task..." 
+                        required/>                     
+                      <div class="invalid-feedback">Please provide a valid description more than 5 characters.</div>
+                      <div class="valid-feedback">Looks good!</div>
+                     </div>
+                      
+                    <!-- AssignedTo -->
+                      <div class="form-group">
+                        <label for="newTaskAssignedTo">Assigned To</label>
+                        <input type="text" class="form-control" id="newTaskAssignedTo" placeholder="Assigned to..." required/>
+                      
+                      <div class="valid-feedback">Looks good!</div>
+                      <div class="invalid-feedback">Please provide a valid name more than 5 characters.</div>
+                      </div>
+                    
+                    <!-- Duedate -->
+                      <div class="form-row">
+                          <div class="form-group col">
+                            <label for="newTaskDuedate">Due Date</label>
+                            <input class="form-control" type="date" id="newTaskDuedate"/>
+                          <div class="valid-feedback">Looks good!</div>
+                          <div class="invalid-feedback">Please provide a valid date.</div>
+                        </div>  
+                      </div>
+                    <!-- Status Priority -->
+                      <div class="form-row">
+                          <div class="form-group col">
+                            <label for="newTaskStatus">Status:</label>                  
+                            <select class="form-control" id="newTaskStatus">
+                            <option selected disabled value="">Choose...</option>
+                            <option value="To-do">To-do</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Review">Review</option>
+                            <option value="Done">Done</option>
+                          </select>
+                          <div class="invalid-feedback">Please click a status.</div>
+                          </div>
+                      </div>
+                  <div class="modal-footer">
+                      <button class="btn btn-warning" type="submit" id="taskSubmit">Submit</button>
+                      <button class="clear btn btn-secondary" type="reset" onclick="document.location.reload()">Reset</button>
+                  </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div> 
+<!-- Edit Form -->
+<!-- Edit Task Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="editModalLabel">Edit Task</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="editTaskId">
+            <div class="form-group">
+                <label for="editTaskName">Name</label>
+                <input type="text" class="form-control" id="editTaskName" required>
+            </div>
+            <div class="form-group">
+                <label for="editTaskDescription">Description</label>
+                <textarea class="form-control" id="editTaskDescription" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="editTaskAssignedTo">Assigned To</label>
+                <input type="text" class="form-control" id="editTaskAssignedTo" required>
+            </div>
+            <div class="form-group">
+                <label for="editTaskDuedate">Due Date</label>
+                <input type="date" class="form-control" id="editTaskDuedate" required>
+            </div>
+            <div class="form-group">
+                <label for="editTaskStatus">Status</label>
+                <select class="form-control" id="editTaskStatus" required>
+                    <option value="To-do">To-do</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Review">Review</option>
+                    <option value="Done">Done</option>
+                </select>
+            </div>
+        </div>
+        
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" id="saveEditButton">Save Changes</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+    
+    <!-- THE MAIN CONTENT STARTS HERE -->
+    <main>
+        <!-- To do list -->
+          <div class="todo-container">
+            <div class="status card" id="to-do" ondrop="drop(event)" ondragover="drop(event)" data-status="To-do">
+                <div class="d-flex justify-content-between align-items-center card-header" id="title"><strong>To do</strong>
+                  <button class="btn btn-sm"><i class='bx bx-dots-horizontal-rounded' style="font-size: 20px; letter-spacing: 2px; opacity: 0.5;"></i></button>
+                </div>
+                <!--ADD TASK CARD -->
+                <button class="btn btn-dark btn-sm d-flex justify-content-between align-items-center" id="add_btn" data-target="#reg-modal" class="btn btn-link btn-block text-reset" data-toggle="modal" data-ripple-color="dark" type="button">
+                  <i class='bx bx-plus'></i> 
+                  <div style="font-size: 12px;">Add a card</div>
+                </button>
+                
+                  <ul class="list-group" id="tasksList" data-drop-target="true">
+                    <!-- This is where the task cards will be added -->
+                    <template>
+                      <li class="list-group-item card m-1" id="task" draggable="true" ondragstart="drag(event)" data-task-id=${id}>
+                        <div class="d-flex mt-2 justify-content-between align-items-center">
+                            <h6></h6>
+                            <span class="badge ${status === 'To-do' ? 'badge-danger' : 'badge-success'} ${status === 'In Progress' ? 'badge-info' : 'badge-success'} ${status === 'Review' ? 'badge-warning' : 'badge-success'}" style="border: 1px solid var(--light); color:var(--light);"></span>
+                        </div>
+                        <div class="d-flex mb-4 justify-content-between">
+                            <small></small>
+                            <small></small>
+                        </div>
+                        <small></small>
+                        <div class="d-flex justify-content-end">
+                         
+                            <button class="btn btn-outline-primary edit-button mr-1">Edit</button>
+                            <button class="btn btn-outline-danger delete-button">Delete</button>
+                                       
+                            
+                        </div>
+                    </li>
+                    </template>
+                  </ul>
+            </div>
+  
+            <!-- In-Progress list -->
+            <div class="status card" id="inProgress" ondrop="drop(event)" ondragover="allowDrop(event)" data-status="In Progress">
+              <div class="d-flex justify-content-between align-items-center card-header" id="title"><strong>In Progress</strong>
+                <button class="btn btn-sm"><i class='bx bx-dots-horizontal-rounded' style="font-size: 20px; letter-spacing: 2px; opacity: 0.5;"></i></button>
+              </div>
+              <!--ADD TASK CARD -->
+              <button class="btn btn-dark btn-sm d-flex justify-content-between align-items-center" id="add_btn" data-target="#reg-modal" class="btn btn-link btn-block text-reset" data-toggle="modal" data-ripple-color="dark" type="button">
+                <i class='bx bx-plus'></i> 
+                <div style="font-size: 12px;">Add a card</div>
+              </button>
+              <ul class="list-group" id="inProgressTasksList" data-drop-target="true"></ul>
+              <!-- This is where the task cards will be added -->
+            </div>
+            
+           <!-- Review list -->
+            <div class="status card" id="review" ondrop="drop(event)" ondragover="allowDrop(event)" data-status="Review">
+              <div class="d-flex justify-content-between align-items-center card-header" id="title"><strong>Review</strong>
+                <button class="btn btn-sm"><i class='bx bx-dots-horizontal-rounded' style="font-size: 20px; letter-spacing: 2px; opacity: 0.5;"></i></button>
+              </div>
+              <!--ADD TASK CARD -->
+              <button class="btn btn-dark btn-sm d-flex justify-content-between align-items-center" id="add_btn" data-target="#reg-modal" class="btn btn-link btn-block text-reset" data-toggle="modal" data-ripple-color="dark" type="button">
+                <i class='bx bx-plus'></i> 
+                <div style="font-size: 12px;">Add a card</div>
+              </button>
+              <ul class="list-group" id="reviewTasksList" data-drop-target="true"></ul>
+              <!-- This is where the task cards will be added -->
+            </div>
+    
+            <!--Done list -->
+            <div class="status card" id="done" data-drop-target="true" ondrop="drop(event)" ondragover="allowDrop(event)" data-status="Done">
+              <div class="d-flex justify-content-between align-items-center card-header" id="title"><strong>Done</strong>
+                <button class="btn btn-sm"><i class='bx bx-dots-horizontal-rounded' style="font-size: 20px; letter-spacing: 2px; opacity: 0.5;"></i></button>
+              </div>
+              <!--ADD TASK CARD -->
+              <button class="btn btn-dark btn-sm d-flex justify-content-between align-items-center" id="add_btn" data-target="#reg-modal" class="btn btn-link btn-block text-reset" data-toggle="modal" data-ripple-color="dark" type="button">
+                <i class='bx bx-plus'></i> 
+                <div style="font-size: 12px;">Add a card</div>
+              </button>
+              <ul class="list-group" id="doneTasksList" data-drop-target="true"></ul>
+              <!-- This is where the task cards will be added -->
+            </div> 
+            
+        </div>     
+      </main>
+  
+   
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src=" https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- Optional JavaScript -->
+
+    <script src="js/taskManager.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
