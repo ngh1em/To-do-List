@@ -48,7 +48,6 @@ class TaskManager {
         }
     }
 
-  
     deleteTask(taskId) {
         const newTasks = [];
         for (const element of this.tasks) {
@@ -143,40 +142,7 @@ class TaskManager {
     }
 }
 
-// Drag and Drop Functionality
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-  }
-  
-  function allowDrop(ev) {
-    ev.preventDefault();
-  }
-  
-  const statusToBadgeClass = {
-    'To-do': 'badge-danger',
-    'In Progress': 'badge-info',
-    'Review': 'badge-warning',
-    'Done': 'badge-success'
-};
 
-function drop(ev) {
-    ev.preventDefault();
-    let data = ev.dataTransfer.getData("text", ev.target.id);
-    let droppedTask = document.getElementById(data);
-    let targetStatus = ev.currentTarget.getAttribute("data-status");
-
-    // Change the status attribute of the task
-    droppedTask.setAttribute("data-status", targetStatus);
-
-    // Update the status badge text
-    let statusBadge = droppedTask.querySelector(".badge");
-    statusBadge.textContent = targetStatus;
-
-    // Update the status badge class
-    statusBadge.className = `badge ${statusToBadgeClass[targetStatus]}`;
-
-    ev.currentTarget.appendChild(droppedTask);
-}
 
 
 // Hamburger animation for the navigation bar 

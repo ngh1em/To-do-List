@@ -223,3 +223,28 @@ function handleEditButtonClick(event) {
 
 // Attach the click event to the document and use event delegation
 $(document).on('click', '#saveEditButton', handleEditButtonClick);
+
+// The drag function to set the data to be transferred
+function drag(event) {
+  event.dataTransfer.setData("text/plain", event.target.dataset.taskId);
+}
+
+// Allow drop event
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+// Handle drop event
+function drop(event) {
+  event.preventDefault();
+  const taskId = event.dataTransfer.getData("text/plain");
+  const task = taskManager.getTaskById(parseInt(taskId));
+
+  if (task) {
+      const newStatus = event.target.getAttribute("data-status");
+      task.status = newStatus;
+      taskManager.save();
+      taskManager.render();
+  }
+}
+

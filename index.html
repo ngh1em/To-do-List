@@ -185,7 +185,7 @@
     <main>
         <!-- To do list -->
           <div class="todo-container">
-            <div class="status card" id="to-do" ondrop="drop(event)" ondragover="drop(event)" data-status="To-do">
+            <div class="status card" id="to-do" ondrop="drop(event)" ondragover="allowDrop(event)" data-status="To-do">
                 <div class="d-flex justify-content-between align-items-center card-header" id="title"><strong>To do</strong>
                   <button class="btn btn-sm"><i class='bx bx-dots-horizontal-rounded' style="font-size: 20px; letter-spacing: 2px; opacity: 0.5;"></i></button>
                 </div>
@@ -196,27 +196,6 @@
                 </button>
                 
                   <ul class="list-group" id="tasksList" data-drop-target="true">
-                    <!-- This is where the task cards will be added -->
-                    <template>
-                      <li class="list-group-item card m-1" id="task" draggable="true" ondragstart="drag(event)" data-task-id=${id}>
-                        <div class="d-flex mt-2 justify-content-between align-items-center">
-                            <h6></h6>
-                            <span class="badge ${status === 'To-do' ? 'badge-danger' : 'badge-success'} ${status === 'In Progress' ? 'badge-info' : 'badge-success'} ${status === 'Review' ? 'badge-warning' : 'badge-success'}" style="border: 1px solid var(--light); color:var(--light);"></span>
-                        </div>
-                        <div class="d-flex mb-4 justify-content-between">
-                            <small></small>
-                            <small></small>
-                        </div>
-                        <small></small>
-                        <div class="d-flex justify-content-end">
-                         
-                            <button class="btn btn-outline-primary edit-button mr-1">Edit</button>
-                            <button class="btn btn-outline-danger delete-button">Delete</button>
-                                       
-                            
-                        </div>
-                    </li>
-                    </template>
                   </ul>
             </div>
   
@@ -249,7 +228,7 @@
             </div>
     
             <!--Done list -->
-            <div class="status card" id="done" data-drop-target="true" ondrop="drop(event)" ondragover="allowDrop(event)" data-status="Done">
+            <div class="status card" id="done" ondrop="drop(event)" ondragover="allowDrop(event)" data-status="Done">
               <div class="d-flex justify-content-between align-items-center card-header" id="title"><strong>Done</strong>
                 <button class="btn btn-sm"><i class='bx bx-dots-horizontal-rounded' style="font-size: 20px; letter-spacing: 2px; opacity: 0.5;"></i></button>
               </div>
