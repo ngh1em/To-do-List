@@ -240,11 +240,14 @@ function drop(event) {
   const taskId = event.dataTransfer.getData("text/plain");
   const task = taskManager.getTaskById(parseInt(taskId));
 
-  if (task) {
-      const newStatus = event.target.getAttribute("data-status");
+  const newStatus = event.target.getAttribute("data-status");
+
+  // Check if the drop target has a valid data-status attribute
+  if (newStatus) {
       task.status = newStatus;
       taskManager.save();
       taskManager.render();
   }
 }
+
 
